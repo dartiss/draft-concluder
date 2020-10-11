@@ -21,6 +21,8 @@ Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/131
 * Each user, who has drafts that then reminding about, will receive an email. No, they can't unsubscribe from them
 * Each email will show the number of drafts, along with a reminder of each of them
 
+Oh, and, naturally, the code passes WordPress and WordPress VIP coding standards.
+
 Iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/).
 
 Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues.
