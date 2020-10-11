@@ -2,7 +2,7 @@
 /**
 Plugin Name: Draft Concluder
 Plugin URI: https://wordpress.org/plugins/draft-concluder/
-Description: 📝 Emails users that have outstanding drafts
+Description: 📝 Email users that have outstanding drafts.
 Version: 0.1
 Author: David Artiss
 Author URI: https://artiss.blog
@@ -37,3 +37,28 @@ function draft_concluder_plugin_meta( $links, $file ) {
 }
 
 add_filter( 'plugin_row_meta', 'draft_concluder_plugin_meta', 10, 2 );
+
+/**
+ * Define scheduler
+ *
+ * If a daily schedule isn't already set up, set one up!
+ */
+function draft_concluder_set_up_schedule() {
+
+	if ( ! wp_next_scheduled( 'draft_concluder_mailer' ) && ! wp_installing() ) {
+		wp_schedule_event( strtotime( 'tomorrow' ), 'daily', 'draft_concluder_mailer' );
+	}
+}
+
+add_action( 'init', 'draft_concluder_set_up_schedule' );
+
+/**
+ * Scheduler actions
+ *
+ * This is the function that runs when the daily scheduler rolls around
+ */
+function draft_concluder_schedule_engine() {
+
+}
+
+add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
