@@ -59,6 +59,21 @@ add_action( 'init', 'draft_concluder_set_up_schedule' );
  */
 function draft_concluder_schedule_engine() {
 
+	// Grab the settings for how often to run this.
+	// If it's not been set, assume weekly!
+
+	$when = get_option( 'draft_concluder_when' );
+	if ( ! isset( $when ) ) {
+		$when = 'weekly';
+	}
+
+	// Check to see if it should be run. If weekly, make sure it's a Sunday.
+	
+	if ( 'daily' == $when || ( 'weekly' == $when && 'Sunday' == date( 'l' ) ) ) {
+	
+		// Code to be added to extract and mail draft information!
+	}
+
 }
 
 add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
