@@ -71,7 +71,10 @@ function draft_concluder_schedule_engine() {
 	// Check to see if it should be run. If weekly, make sure it's a Sunday.
 	
 	if ( 'daily' == $when || ( 'daily' != $when && date( 'l' ) == $when ) ) {
-		draft_concluder_process_posts();
+		if ( 'daily' != $when ) {
+			$daily = 'weekly';
+		}
+		draft_concluder_process_posts( $when );
 	}
 
 }
@@ -84,15 +87,19 @@ add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
  * This processes the draft posts for each user in turn
  * It's defined as a seperate function, seperate from the scheduler action, so that it can
  * be called seperately, if required.
+ *
+ * @param string $when 'daily' or 'weekly' - how often the email is produced.
  */
-function draft_concluder_process_posts() {
+function draft_concluder_process_posts( $when ) {
 
 	// Get an array of users and loop through each.
 
 	$users = get_users();
 	foreach ( $users as $user ) {
 
-		// Now grab all the postd of each user.
+		$draft_count = 0;
+
+		// Now grab all the posts of each user.
 
 		$args = array(
 			'author'      => $user->display_name,
@@ -101,8 +108,76 @@ function draft_concluder_process_posts() {
 			'sort_order'  => 'asc',
 		);
 
-		$posts = get_posts( $args );
+		$email_addy = $user->user_email;
+
+		$posts   = get_posts( $args );
+		$message = '';
+
 		foreach ( $posts as $post ) {
+
+			$title = $post->post_title;
+
+			$draft_count ++;
+
+			/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
+			$message .= __(
+				'###COUNT###. ###TITLE### - ###LINK###
+    This was created on ###CREATED### and was last edited on ###MODIFIED###.
+',
+				'draft_concluder'
+			);
+
+
+			$message = str_replace(
+				array(
+					'###COUNT###',
+					'###TITLE###',
+					'###LINK###',
+					'###CREATED###',
+					'###MODIFIED###',
+				),
+				array(
+					$draft_count,
+					$post->post_title,
+					get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
+					$post->post_date,
+					$post->post_modified,
+				),
+				$message
+			);
+		}
+
+		if ( 0 < $draft_count ) {
+
+			/* translators: Do not translate WHEN or NUMBER: those are placeholders. */
+			$header = __(
+				'Howdy!
+
+This is your ###WHEN### reminder that you have ###NUMBER### outstanding draft(s) that require your attention:
+
+',
+				'draft_concluder'
+			);
+
+			$header = str_replace(
+				array(
+					'###WHEN###',
+					'###NUMBER###',
+				),
+				array(
+					$when,
+					$draft_count,
+				),
+				$header
+			);
+
+			/* translators:  */
+			$subject = sprintf( __( '[%s] You have outstanding drafts', 'draft-concluder' ), get_bloginfo( 'name' ) );
+			$body    = $header . $message;
+	 
+			$mail_check = wp_mail( $email_addy, $subject, $body );
 		}
 	}
+
+
 }
