@@ -92,6 +92,26 @@ add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
  */
 function draft_concluder_process_posts( $when ) {
 
+	if ( ! isset( $when ) ) {
+		exit;
+	}
+
+	// Get age of acceptable posts.
+	// If not set, assume 0 which means an unlimited.
+
+	$age = get_option( 'draft_concluder_age' );
+	if ( ! isset( $age ) ) {
+		$age = 0;
+	}
+	$age_of_what = get_option( 'draft_concluder_age_of_what' );
+
+	// Set up the post types that will be searched for.
+
+	$postpage = get_option( 'draft_concluder_what' );
+	if ( ! isset( $postpage ) || 'postpage' == $postpage ) {
+		$postpage = array( 'page', 'post' );
+	}
+
 	// Get an array of users and loop through each.
 
 	$users = get_users();
@@ -103,6 +123,7 @@ function draft_concluder_process_posts( $when ) {
 
 		$args = array(
 			'author'      => $user->display_name,
+			'post_type'   => $postpage,
 			'post_status' => 'draft',
 			'orderby'     => 'post_date',
 			'sort_order'  => 'asc',
@@ -114,8 +135,6 @@ function draft_concluder_process_posts( $when ) {
 		$message = '';
 
 		foreach ( $posts as $post ) {
-
-			$title = $post->post_title;
 
 			$draft_count ++;
 
@@ -171,13 +190,12 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding draft(s)
 				$header
 			);
 
-			/* translators:  */
-			$subject = sprintf( __( '[%s] You have outstanding drafts', 'draft-concluder' ), get_bloginfo( 'name' ) );
+			/* translators: %1$s: name of blog, %2$s: number of drafts */
+			$subject = sprintf( __( '[%1$s] You have %2$s outstanding drafts', 'draft-concluder' ), get_bloginfo( 'name' ), $draft_count );
 			$body    = $header . $message;
 	 
+			// phpcs:ignore -- ignoring from PHPCS as this is only being used for a small number of mails
 			$mail_check = wp_mail( $email_addy, $subject, $body );
 		}
 	}
-
-
 }
