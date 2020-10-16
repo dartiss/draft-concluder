@@ -136,6 +136,8 @@ function draft_concluder_process_posts( $when ) {
 
 		foreach ( $posts as $post ) {
 
+			// Build a list of drafts that require the user's attention.
+
 			$draft_count ++;
 
 			/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
@@ -159,24 +161,41 @@ function draft_concluder_process_posts( $when ) {
 					$draft_count,
 					$post->post_title,
 					get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
-					$post->post_date,
-					$post->post_modified,
+					substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ),
+					substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ),
 				),
 				$message
 			);
 		}
 
+		// Add a header to the email content. A different message is used dependant on whether there is 1 or more drafts.
+
 		if ( 0 < $draft_count ) {
 
-			/* translators: Do not translate WHEN or NUMBER: those are placeholders. */
-			$header = __(
-				'Howdy!
+			if ( 1 == $draft_count ) {
 
-This is your ###WHEN### reminder that you have ###NUMBER### outstanding draft(s) that require your attention:
+				/* translators: Do not translate WHEN: this is a placeholder. */
+				$header = __(
+					'Howdy!
 
-',
-				'draft_concluder'
-			);
+	This is your ###WHEN### reminder that you have an outstanding draft that requires your attention:
+
+	',
+					'draft_concluder'
+				);
+
+			} else {
+
+				/* translators: Do not translate WHEN or NUMBER: those are placeholders. */
+				$header = __(
+					'Howdy!
+
+	This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts that require your attention:
+
+	',
+					'draft_concluder'
+				);
+			}
 
 			$header = str_replace(
 				array(
