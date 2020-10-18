@@ -39,24 +39,29 @@ function draft_concluder_plugin_meta( $links, $file ) {
 add_filter( 'plugin_row_meta', 'draft_concluder_plugin_meta', 10, 2 );
 
 /**
- * Add meta to plugin details
+ * Modify actions links.
  *
- * Add options to plugin meta line
+ * Add or remove links for the actions listed against this plugin
  *
  * @param    string $actions      Current actions.
  * @param    string $plugin_file  The plugin.
  * @return   string               Actions, now with deactivation removed!
  */
-function draft_concluder_remove_deactivation( $actions, $plugin_file ) {
+function draft_concluder_action_links( $actions, $plugin_file ) {
 
+	// Make sure we only perform actions for this specific plugin!
 	if ( plugin_basename( __FILE__ ) === $plugin_file ) {
-		unset( $actions['deactivate'] );
+
+		// If the appropriate constant is defined, remove the deactionation link.
+		if ( defined( 'DO_NOT_DISABLE_MY_DRAFT_REMINDER' ) && true === DO_NOT_DISABLE_MY_DRAFT_REMINDER ) {
+			unset( $actions['deactivate'] );
+		}
 	}
 
 	return $actions;
 }
 
-add_filter( 'plugin_action_links', 'draft_concluder_remove_deactivation', 10, 2 );
+add_filter( 'plugin_action_links', 'draft_concluder_action_links', 10, 2 );
 
 /**
  * Define scheduler
@@ -113,7 +118,6 @@ add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
 function draft_concluder_process_posts( $when ) {
 
 	if ( ! isset( $when ) ) {
-		echo '::Exiting::';
 		exit;
 	}
 

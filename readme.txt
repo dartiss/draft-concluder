@@ -20,6 +20,7 @@ Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/131
 * Target those drafts that were created more than a specific time period ago, or have not been updated for a while
 * Each user, who has drafts that then reminding about, will receive an email. No, they can't unsubscribe from them
 * Each email will show the number of drafts, along with a reminder of each of them
+* Optional ability to prevent the plugin from being deactivated (allow you to avoid the temptation to do so rather than, you know, deal with the drafts)
 
 Oh, and, naturally, the code passes WordPress and WordPress VIP coding standards.
 
@@ -47,6 +48,16 @@ Heck, no. That's the beauty of this plugin.
 I wouldn't do that. The email comes from the site's account - marking it as spam may also lead to all other site emails going the same way, including password resets and important security information.
 
 Look, if it means that much to you, maybe look to sorting out your drafts, yes?
+
+= How can I prevent the plugin from being deactivated? =
+
+...said no-one. But seriously, you want to remove the temptation, right?
+
+Crack open your site's `wp-config.php` and add the following line of code...
+
+`define( 'DO_NOT_DISABLE_MY_DRAFT_REMINDER', true );`
+
+And the deed is done - you can no longer disable the plugin (cue diabolical laughter).
 
 == Changelog ==
 
