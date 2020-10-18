@@ -39,6 +39,26 @@ function draft_concluder_plugin_meta( $links, $file ) {
 add_filter( 'plugin_row_meta', 'draft_concluder_plugin_meta', 10, 2 );
 
 /**
+ * Add meta to plugin details
+ *
+ * Add options to plugin meta line
+ *
+ * @param    string $actions      Current actions.
+ * @param    string $plugin_file  The plugin.
+ * @return   string               Actions, now with deactivation removed!
+ */
+function draft_concluder_remove_deactivation( $actions, $plugin_file ) {
+
+	if ( plugin_basename( __FILE__ ) === $plugin_file ) {
+		unset( $actions['deactivate'] );
+	}
+
+	return $actions;
+}
+
+add_filter( 'plugin_action_links', 'draft_concluder_remove_deactivation', 10, 2 );
+
+/**
  * Define scheduler
  *
  * If a schedule isn't already set up, set one up!
@@ -69,7 +89,7 @@ function draft_concluder_schedule_engine() {
 	}
 
 	// Check to see if it should be run. If weekly, make sure it's a Sunday.
-	
+
 	if ( 'daily' == $when || ( 'daily' != $when && date( 'l' ) == $when ) ) {
 		if ( 'daily' != $when ) {
 			$daily = 'weekly';
@@ -93,17 +113,18 @@ add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
 function draft_concluder_process_posts( $when ) {
 
 	if ( ! isset( $when ) ) {
+		echo '::Exiting::';
 		exit;
 	}
 
 	// Get age of acceptable posts.
 	// If not set, assume 0 which means an unlimited.
 
-	$age = get_option( 'draft_concluder_age' );
+	$since = get_option( 'draft_concluder_since' );
+	$age   = get_option( 'draft_concluder_age' );
 	if ( ! isset( $age ) ) {
 		$age = 0;
 	}
-	$age_of_what = get_option( 'draft_concluder_age_of_what' );
 
 	// Set up the post types that will be searched for.
 
@@ -136,36 +157,55 @@ function draft_concluder_process_posts( $when ) {
 
 		foreach ( $posts as $post ) {
 
-			// Build a list of drafts that require the user's attention.
+			// Check to see if draft is old enough!
 
-			$draft_count ++;
+			$include_draft = true;
 
-			/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
-			$message .= __(
-				'###COUNT###. ###TITLE### - ###LINK###
+			if ( 0 != $age ) {
+
+				if ( 'modified' == $since ) {
+					$date = $post->post_modified;
+				} else {
+					$date = $post->post_date;
+				}
+
+				if ( $strtotime( $date ) > ( time() - $age ) ) {
+					$include_draft = false;
+				}
+			}
+
+			if ( $include_draft ) {
+
+				// Build a list of drafts that require the user's attention.
+
+				$draft_count ++;
+
+				/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
+				$message .= __(
+					'###COUNT###. ###TITLE### - ###LINK###
     This was created on ###CREATED### and was last edited on ###MODIFIED###.
 ',
-				'draft_concluder'
-			);
+					'draft_concluder'
+				);
 
-
-			$message = str_replace(
-				array(
-					'###COUNT###',
-					'###TITLE###',
-					'###LINK###',
-					'###CREATED###',
-					'###MODIFIED###',
-				),
-				array(
-					$draft_count,
-					$post->post_title,
-					get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
-					substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ),
-					substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ),
-				),
-				$message
-			);
+				$message = str_replace(
+					array(
+						'###COUNT###',
+						'###TITLE###',
+						'###LINK###',
+						'###CREATED###',
+						'###MODIFIED###',
+					),
+					array(
+						$draft_count,
+						$post->post_title,
+						get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
+						substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ),
+						substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ),
+					),
+					$message
+				);
+			}
 		}
 
 		// Add a header to the email content. A different message is used dependant on whether there is 1 or more drafts.
@@ -178,9 +218,9 @@ function draft_concluder_process_posts( $when ) {
 				$header = __(
 					'Howdy!
 
-	This is your ###WHEN### reminder that you have an outstanding draft that requires your attention:
+This is your ###WHEN### reminder that you have an outstanding draft that requires your attention:
 
-	',
+',
 					'draft_concluder'
 				);
 
@@ -190,9 +230,9 @@ function draft_concluder_process_posts( $when ) {
 				$header = __(
 					'Howdy!
 
-	This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts that require your attention:
+This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts that require your attention:
 
-	',
+',
 					'draft_concluder'
 				);
 			}
@@ -212,9 +252,9 @@ function draft_concluder_process_posts( $when ) {
 			/* translators: %1$s: name of blog, %2$s: number of drafts */
 			$subject = sprintf( __( '[%1$s] You have %2$s outstanding drafts', 'draft-concluder' ), get_bloginfo( 'name' ), $draft_count );
 			$body    = $header . $message;
-	 
+
 			// phpcs:ignore -- ignoring from PHPCS as this is only being used for a small number of mails
-			$mail_check = wp_mail( $email_addy, $subject, $body );
+			wp_mail( $email_addy, $subject, $body );
 		}
 	}
 }
