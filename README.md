@@ -1,6 +1,6 @@
 # Draft Concluder
 
-Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203), this plugin is designed to punish those who leave draft posts unloved. Although I've not implemented the suggestion of making the plugin un-uninstallable, the rest of John's ideas are here, with more to boot.
+Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
 
 * Send emails out on a daily or weekly schedule and at a time that you'd prefer
 * Look for draft pages as well as posts, if you like. Or just pages, if that's what you want. We won't judge
