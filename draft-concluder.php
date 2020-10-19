@@ -67,12 +67,31 @@ add_filter( 'plugin_action_links', 'draft_concluder_action_links', 10, 2 );
  * Define scheduler
  *
  * If a schedule isn't already set up, set one up!
- * It will run at 1am tomorrow and then daily afterwards.
+ * It will run daily at a time which can be adjusted.
  */
 function draft_concluder_set_up_schedule() {
 
+	// Get the time that the event needs scheduling for.
+	// If one isn't specified, default to 1am!
+
+	$time = get_option( 'draft_concluder_time' );
+	if ( ! isset( $time ) ) {
+		$time = '1am';
+	}
+
+	// If we have an old time saved, check to see if it's changed.
+	// If it has, remove the event and update the old one.
+
+	$saved_time = get_option( 'draft_concluder_prev_time' );
+	if ( isset( $saved_time ) && $time != $saved_time ) {
+		wp_clear_scheduled_hook( 'draft_concluder_mailer' );
+		update_option( 'draft_concluder_prev_time', $time );
+	}
+
+	// Schedule an event if one doesn't already exist.
+
 	if ( ! wp_next_scheduled( 'draft_concluder_mailer' ) && ! wp_installing() ) {
-		wp_schedule_event( strtotime( 'tomorrow 1am' ), 'daily', 'draft_concluder_mailer' );
+		wp_schedule_event( strtotime( 'tomorrow ' . $time ), 'daily', 'draft_concluder_mailer' );
 	}
 }
 
