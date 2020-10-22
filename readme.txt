@@ -2,7 +2,7 @@
 Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: drafts, email, mail, pages, posts, reminder
-Requires at least: 2.8
+Requires at least: 3.1
 Tested up to: 5.5
 Requires PHP: 5.3
 Stable tag: 0.1

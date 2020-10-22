@@ -52,6 +52,10 @@ function draft_concluder_action_links( $actions, $plugin_file ) {
 		if ( defined( 'DO_NOT_DISABLE_MY_DRAFT_REMINDER' ) && true === DO_NOT_DISABLE_MY_DRAFT_REMINDER ) {
 			unset( $actions['deactivate'] );
 		}
+
+		// Add link to the settings page.
+		array_unshift( $actions, '<a href="' . admin_url() . 'options-general.php">' . __( 'Settings', 'draft-concluder' ) . '</a>' );
+
 	}
 
 	return $actions;
@@ -75,14 +79,7 @@ function draft_concluder_set_up_schedule() {
 		$time = '1am';
 	}
 
-	// If we have an old time saved, check to see if it's changed.
-	// If it has, remove the event and update the old one.
-
-	$saved_time = get_option( 'draft_concluder_prev_time' );
-	if ( isset( $saved_time ) && $time != $saved_time ) {
-		wp_clear_scheduled_hook( 'draft_concluder_mailer' );
-		update_option( 'draft_concluder_prev_time', $time );
-	}
+	draft_concluder_check_scheduled_time( $time );
 
 	// Schedule an event if one doesn't already exist.
 
@@ -92,6 +89,26 @@ function draft_concluder_set_up_schedule() {
 }
 
 add_action( 'init', 'draft_concluder_set_up_schedule' );
+
+/**
+ * Checked scheduled time
+ *
+ * If the scheduled time has changed, remove it.
+ *
+ * @param string $time Current schedule time.
+ */
+function draft_concluder_check_scheduled_time( $time ) {
+
+	// If we have an old time saved, check to see if it's changed.
+	// If it has, remove the event and update the old one.
+
+	$saved_time = get_option( 'draft_concluder_prev_time' );
+
+	if ( isset( $saved_time ) && $time != $saved_time ) {
+		wp_clear_scheduled_hook( 'draft_concluder_mailer' );
+		update_option( 'draft_concluder_prev_time', $time );
+	}
+}
 
 /**
  * Scheduler engine

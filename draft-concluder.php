@@ -14,4 +14,6 @@ Text Domain: draft-concluder
 // Require the various code components - all held within the inc folder.
 require_once plugin_dir_path( __FILE__ ) . 'inc/setup.php';
 
+require_once plugin_dir_path( __FILE__ ) . 'inc/settings.php';
+
 require_once plugin_dir_path( __FILE__ ) . 'inc/process-drafts.php';
