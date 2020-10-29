@@ -75,7 +75,7 @@ function draft_concluder_set_up_schedule() {
 	// If one isn't specified, default to 1am!
 
 	$time = get_option( 'draft_concluder_time' );
-	if ( ! isset( $time ) ) {
+	if ( ! $time ) {
 		$time = '1am';
 	}
 
@@ -104,7 +104,7 @@ function draft_concluder_check_scheduled_time( $time ) {
 
 	$saved_time = get_option( 'draft_concluder_prev_time' );
 
-	if ( isset( $saved_time ) && $time != $saved_time ) {
+	if ( false !== $saved_time && $time != $saved_time ) {
 		wp_clear_scheduled_hook( 'draft_concluder_mailer' );
 		update_option( 'draft_concluder_prev_time', $time );
 	}
@@ -121,7 +121,7 @@ function draft_concluder_schedule_engine() {
 	// If it's not been set, assume weekly!
 
 	$when = get_option( 'draft_concluder_when' );
-	if ( ! isset( $when ) ) {
+	if ( ! $when ) {
 		$when = 'Monday';
 	}
 
