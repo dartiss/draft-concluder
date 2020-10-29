@@ -46,7 +46,7 @@ add_filter( 'plugin_row_meta', 'draft_concluder_plugin_meta', 10, 2 );
 function draft_concluder_action_links( $actions, $plugin_file ) {
 
 	// Make sure we only perform actions for this specific plugin!
-	if ( plugin_basename( __FILE__ ) === $plugin_file ) {
+	if ( strpos( $plugin_file, 'draft-concluder.php' ) !== false ) {
 
 		// If the appropriate constant is defined, remove the deactionation link.
 		if ( defined( 'DO_NOT_DISABLE_MY_DRAFT_REMINDER' ) && true === DO_NOT_DISABLE_MY_DRAFT_REMINDER ) {
