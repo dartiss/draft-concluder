@@ -14,13 +14,12 @@
  * It's defined as a seperate function, seperate from the scheduler action, so that it can
  * be called seperately, if required.
  *
- * @param string $when 'daily' or 'weekly' - how often the email is produced.
+ * @param string $debug true or false, determining if this is to be emailed or output.
  */
-function draft_concluder_process_posts( $when ) {
+function draft_concluder_process_posts( $debug = false ) {
 
-	if ( ! isset( $when ) ) {
-		exit;
-	}
+	$output = array();
+	$errors = 0;
 
 	// Get age of acceptable posts.
 	// If not set, assume 0 which means an unlimited.
@@ -154,12 +153,43 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 				$header
 			);
 
-			/* translators: %1$s: name of blog, %2$s: number of drafts */
-			$subject = sprintf( __( '[%1$s] You have %2$s outstanding drafts', 'draft-concluder' ), get_bloginfo( 'name' ), $draft_count );
-			$body    = $header . $message;
+			if ( 1 == $draft_count ) {
+				/* translators: %1$s: name of blog */
+				$subject = sprintf( __( '[%1$s] You have an outstanding draft', 'draft-concluder' ), get_bloginfo( 'name' ) );
+			} else {
+				/* translators: %1$s: name of blog, %2$s: number of drafts */
+				$subject = sprintf( __( '[%1$s] You have %2$s outstanding drafts', 'draft-concluder' ), get_bloginfo( 'name' ), $draft_count );
+			}
+			$body = $header . $message;
 
-			// phpcs:ignore -- ignoring from PHPCS as this is only being used for a small number of mails
-			wp_mail( $email_addy, $subject, $body );
+			$display_out       = '<p>' . esc_attr__( 'To: ', 'draft_concluder' ) . esc_attr( $email_addy ) . '<br/>' . esc_attr__( 'Subject: ', 'draft_concluder' ) . esc_attr( $subject ) . '<br/><br/>' . nl2br( esc_attr( $body ) ) . '</p>';
+			$output['emails'] .= $display_out;
+
+			// If debugging, output to screen - otherwise, email the results.
+
+			if ( $debug ) {
+				echo wp_kses(
+					$display_out,
+					array(
+						'br' => array(),
+						'p'  => array(),
+					)
+				);
+			} else {
+				// phpcs:ignore -- ignoring from PHPCS as this is only being used for a small number of mails
+				$mail_rc = wp_mail( $email_addy, $subject, $body );
+				if ( ! $mail_rc ) {
+					$errors++;
+				}
+			}
 		}
+	}
+
+	// Update the saved output for the last run.
+
+	if ( ! $debug ) {
+		$output['errors']    = $errors;
+		$output['timestamp'] = time();
+		$update_option( 'draft_concluder_output', $output );
 	}
 }

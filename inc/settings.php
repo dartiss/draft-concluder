@@ -47,10 +47,24 @@ add_action( 'admin_init', 'draft_concluder_settings_init' );
  */
 function draft_concluder_section_callback() {
 
-	/* translators: %s: URL of website */
-	$text = __( 'These settings allow you to control when the emails are generated and what they should report on.', 'draft-concluder' );
+	$output = get_option( 'draft_concluder_output' );
 
-	echo esc_attr( sprintf( $text, esc_url( home_url() ) ) );
+	echo esc_attr( __( 'These settings allow you to control when the emails are generated and what they should report on.', 'draft-concluder' ) );
+
+	echo '<br/><br/>';
+	echo wp_kses( '<strong>' . __( 'Status: ', 'draft_concluder' ) . '</strong>', array( 'strong' => array() ) );
+	if ( ! $output ) {
+		echo esc_attr( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
+	} else {
+		$timestamp = date( 'l jS \of F Y at h:i:s A', $output['timestamp'] );
+		if ( 0 == $output['errors'] ) {
+			/* translators: %1$s: timestamp */
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft_concluder' ), $timestamp );
+		} else {
+			/* translators: %1$s: timestamp */
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with errors.', 'draft_concluder' ), $timestamp );
+		}
+	}
 }
 
 /**

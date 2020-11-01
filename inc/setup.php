@@ -125,13 +125,10 @@ function draft_concluder_schedule_engine() {
 		$when = 'Monday';
 	}
 
-	// Check to see if it should be run. If weekly, make sure it's a Sunday.
+	// Check to see if it should be run.
 
 	if ( 'daily' == $when || ( 'daily' != $when && date( 'l' ) == $when ) ) {
-		if ( 'daily' != $when ) {
-			$daily = 'weekly';
-		}
-		draft_concluder_process_posts( $when );
+		draft_concluder_process_posts();
 	}
 
 }

@@ -17,3 +17,5 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/setup.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/settings.php';
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/process-drafts.php';
+
+require_once plugin_dir_path( __FILE__ ) . 'inc/debug.php';
