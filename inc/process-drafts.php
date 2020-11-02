@@ -26,14 +26,14 @@ function draft_concluder_process_posts( $debug = false ) {
 
 	$since = get_option( 'draft_concluder_since' );
 	$age   = get_option( 'draft_concluder_age' );
-	if ( ! isset( $age ) ) {
+	if ( ! $age ) {
 		$age = 0;
 	}
 
 	// Set up the post types that will be searched for.
 
 	$postpage = get_option( 'draft_concluder_what' );
-	if ( ! isset( $postpage ) || 'postpage' == $postpage ) {
+	if ( ! $postpage || 'postpage' == $postpage ) {
 		$postpage = array( 'page', 'post' );
 	}
 
@@ -47,7 +47,7 @@ function draft_concluder_process_posts( $debug = false ) {
 		// Now grab all the posts of each user.
 
 		$args = array(
-			'author'      => $user->display_name,
+			'ID'          => $user->ID,
 			'post_type'   => $postpage,
 			'post_status' => 'draft',
 			'orderby'     => 'post_date',

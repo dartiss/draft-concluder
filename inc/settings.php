@@ -168,18 +168,18 @@ function draft_concluder_what_callback() {
 	$option = get_option( 'draft_concluder_what' );
 
 	echo '<select name="draft_concluder_what"><option ';
-	if ( 'posts' == $option ) {
+	if ( 'post' == $option ) {
 		echo 'selected="selected" ';
 	}
 	echo 'value="posts">Posts</option><option ';
-	if ( 'pages' == $option ) {
+	if ( 'page' == $option ) {
 		echo 'selected="selected" ';
 	}
 	echo 'value="pages">Pages</option><option ';
-	if ( 'postspages' == $option || ! $option ) {
+	if ( 'postpage' == $option || ! $option ) {
 		echo 'selected="selected" ';
 	}
-	echo 'value="postspages">Posts & Pages</option></select>';
+	echo 'value="postpage">Posts & Pages</option></select>';
 }
 
 /**
