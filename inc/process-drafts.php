@@ -47,9 +47,10 @@ function draft_concluder_process_posts( $debug = false ) {
 		// Now grab all the posts of each user.
 
 		$args = array(
-			'ID'          => $user->ID,
-			'post_type'   => $postpage,
 			'post_status' => 'draft',
+			'post_type'   => $postpage,
+			'numberposts' => 99,
+			'author'      => $user->ID,
 			'orderby'     => 'post_date',
 			'sort_order'  => 'asc',
 		);
