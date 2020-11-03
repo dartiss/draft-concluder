@@ -81,7 +81,7 @@ function draft_concluder_process_posts( $debug = false ) {
 				/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
 				$message .= __(
 					'###COUNT###. ###TITLE### - ###LINK###
-    This was created on ###CREATED### and was last edited on ###MODIFIED###.
+    This was last edited on ###MODIFIED###.
 ',
 					'draft_concluder'
 				);
@@ -91,14 +91,12 @@ function draft_concluder_process_posts( $debug = false ) {
 						'###COUNT###',
 						'###TITLE###',
 						'###LINK###',
-						'###CREATED###',
 						'###MODIFIED###',
 					),
 					array(
 						$draft_count,
 						$post->post_title,
 						get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
-						substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ),
 						substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ),
 					),
 					$message
