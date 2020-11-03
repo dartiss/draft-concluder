@@ -32,10 +32,6 @@ function draft_concluder_settings_init() {
 	// Add the settings field for how old drafts must be to qualify.
 	add_settings_field( 'draft_concluder_age', __( 'Draft age to qualify', 'draft-concluder' ), 'draft_concluder_age_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_age' ) );
 	register_setting( 'general', 'draft_concluder_age' );
-
-	// Add the settings field for whether draft ages should be based on creation or update.
-	add_settings_field( 'draft_concluder_since', '', 'draft_concluder_since_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_since' ) );
-	register_setting( 'general', 'draft_concluder_since' );
 }
 
 add_action( 'admin_init', 'draft_concluder_settings_init' );
@@ -171,11 +167,11 @@ function draft_concluder_what_callback() {
 	if ( 'post' == $option ) {
 		echo 'selected="selected" ';
 	}
-	echo 'value="posts">Posts</option><option ';
+	echo 'value="post">Posts</option><option ';
 	if ( 'page' == $option ) {
 		echo 'selected="selected" ';
 	}
-	echo 'value="pages">Pages</option><option ';
+	echo 'value="page">Pages</option><option ';
 	if ( 'postpage' == $option || ! $option ) {
 		echo 'selected="selected" ';
 	}
@@ -195,24 +191,4 @@ function draft_concluder_age_callback() {
 	}
 
 	echo '<input name="draft_concluder_age" size="3" maxlength="3" type="text" value="' . esc_attr( $option ) . '" />&nbsp;days';
-}
-
-/**
- * Since? callback
- *
- * Add the settings field for whether draft ages should be based on creation or update.
- */
-function draft_concluder_since_callback() {
-
-	$option = get_option( 'draft_concluder_since' );
-
-	echo '<select name="draft_concluder_since"><option ';
-	if ( 'created' == $option || ! $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="created">Since they were created</option><option ';
-	if ( 'modified' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="modified">Since they were last updated</option></select>';
 }

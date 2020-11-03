@@ -24,8 +24,7 @@ function draft_concluder_process_posts( $debug = false ) {
 	// Get age of acceptable posts.
 	// If not set, assume 0 which means an unlimited.
 
-	$since = get_option( 'draft_concluder_since' );
-	$age   = get_option( 'draft_concluder_age' );
+	$age = get_option( 'draft_concluder_age' );
 	if ( ! $age ) {
 		$age = 0;
 	}
@@ -68,13 +67,7 @@ function draft_concluder_process_posts( $debug = false ) {
 
 			if ( 0 != $age ) {
 
-				if ( 'modified' == $since ) {
-					$date = $post->post_modified;
-				} else {
-					$date = $post->post_date;
-				}
-
-				if ( $strtotime( $date ) > ( time() - $age ) ) {
+				if ( $strtotime( $post->post_date ) > ( time() - $age ) ) {
 					$include_draft = false;
 				}
 			}
