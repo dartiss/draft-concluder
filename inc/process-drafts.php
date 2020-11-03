@@ -67,7 +67,13 @@ function draft_concluder_process_posts( $debug = false ) {
 
 			if ( 0 != $age ) {
 
-				if ( $strtotime( $post->post_date ) > ( time() - $age ) ) {
+				// Convert the post edit date into Unix time format.
+				$post_unix = strtotime( $post->post_date );
+
+				// Get current time in Unix format and subtract the number of days specified.
+				$check_unix = time() - ( $age * DAY_IN_SECONDS );
+
+				if ( $post_unix > $check_unix ) {
 					$include_draft = false;
 				}
 			}
