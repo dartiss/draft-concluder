@@ -24,7 +24,8 @@ function draft_concluder_process_posts( $debug = false ) {
 	// Get age of acceptable posts.
 	// If not set, assume 0 which means an unlimited.
 
-	$age = get_option( 'draft_concluder_age' );
+	$since = get_option( 'draft_concluder_since' );
+	$age   = get_option( 'draft_concluder_age' );
 	if ( ! $age ) {
 		$age = 0;
 	}
@@ -67,8 +68,14 @@ function draft_concluder_process_posts( $debug = false ) {
 
 			if ( 0 != $age ) {
 
+				if ( 'modified' == $since ) {
+					$date = $post->post_modified;
+				} else {
+					$date = $post->post_date;
+				}
+
 				// Convert the post edit date into Unix time format.
-				$post_unix = strtotime( $post->post_date );
+				$post_unix = strtotime( $date );
 
 				// Get current time in Unix format and subtract the number of days specified.
 				$check_unix = time() - ( $age * DAY_IN_SECONDS );
@@ -87,7 +94,7 @@ function draft_concluder_process_posts( $debug = false ) {
 				/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
 				$message .= __(
 					'###COUNT###. ###TITLE### - ###LINK###
-    This was last edited on ###MODIFIED###.
+    This was created on ###CREATED### and last edited on ###MODIFIED###.
 ',
 					'draft_concluder'
 				);
@@ -97,12 +104,14 @@ function draft_concluder_process_posts( $debug = false ) {
 						'###COUNT###',
 						'###TITLE###',
 						'###LINK###',
+						'###CREATED###',
 						'###MODIFIED###',
 					),
 					array(
 						$draft_count,
 						$post->post_title,
 						get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
+						substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ),
 						substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ),
 					),
 					$message
@@ -188,6 +197,6 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 	if ( ! $debug ) {
 		$output['errors']    = $errors;
 		$output['timestamp'] = time();
-		$update_option( 'draft_concluder_output', $output );
+		update_option( 'draft_concluder_output', $output );
 	}
 }

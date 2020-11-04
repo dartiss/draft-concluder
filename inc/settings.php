@@ -32,6 +32,10 @@ function draft_concluder_settings_init() {
 	// Add the settings field for how old drafts must be to qualify.
 	add_settings_field( 'draft_concluder_age', __( 'Draft age to qualify', 'draft-concluder' ), 'draft_concluder_age_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_age' ) );
 	register_setting( 'general', 'draft_concluder_age' );
+
+	// Add the settings field for whether draft ages should be based on creation or update.
+	add_settings_field( 'draft_concluder_since', '', 'draft_concluder_since_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_since' ) );
+	register_setting( 'general', 'draft_concluder_since' );
 }
 
 add_action( 'admin_init', 'draft_concluder_settings_init' );
@@ -52,7 +56,7 @@ function draft_concluder_section_callback() {
 	if ( ! $output ) {
 		echo esc_attr( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
 	} else {
-		$timestamp = date( 'l jS \of F Y at h:i:s A', $output['timestamp'] );
+		$timestamp = date( 'l jS \of F Y @ h:i:s A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
 			/* translators: %1$s: timestamp */
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft_concluder' ), $timestamp );
@@ -61,6 +65,8 @@ function draft_concluder_section_callback() {
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with errors.', 'draft_concluder' ), $timestamp );
 		}
 	}
+
+	echo esc_attr( $text ) . '<br/>';
 }
 
 /**
@@ -115,9 +121,6 @@ function draft_concluder_when_callback() {
 function draft_concluder_time_callback() {
 
 	$option = get_option( 'draft_concluder_time' );
-
-	// If the time has changed, update the event schedule.
-	draft_concluder_check_scheduled_time( $option );
 
 	echo '<select name="draft_concluder_time"><option ';
 	if ( '1am' == $option || ! $option ) {
@@ -191,4 +194,24 @@ function draft_concluder_age_callback() {
 	}
 
 	echo '<input name="draft_concluder_age" size="3" maxlength="3" type="text" value="' . esc_attr( $option ) . '" />&nbsp;days';
+}
+
+/**
+ * Since? callback
+ *
+ * Add the settings field for whether draft ages should be based on creation or update.
+ */
+function draft_concluder_since_callback() {
+
+	$option = get_option( 'draft_concluder_since' );
+
+	echo '<select name="draft_concluder_since"><option ';
+	if ( 'created' == $option || ! $option ) {
+		echo 'selected="selected" ';
+	}
+	echo 'value="created">Since they were created</option><option ';
+	if ( 'modified' == $option ) {
+		echo 'selected="selected" ';
+	}
+	echo 'value="modified">Since they were last updated</option></select>';
 }

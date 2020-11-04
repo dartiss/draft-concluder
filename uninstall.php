@@ -16,6 +16,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 // Delete options.
 
 delete_option( 'draft_concluder_age' );
+delete_option( 'draft_concluder_output' );
 delete_option( 'draft_concluder_prev_time' );
 delete_option( 'draft_concluder_since' );
 delete_option( 'draft_concluder_time' );

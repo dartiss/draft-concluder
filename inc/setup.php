@@ -79,7 +79,15 @@ function draft_concluder_set_up_schedule() {
 		$time = '1am';
 	}
 
-	draft_concluder_check_scheduled_time( $time );
+	// If we have an old time saved, check to see if it's changed.
+	// If it has, remove the event and update the old one.
+
+	$saved_time = get_option( 'draft_concluder_prev_time' );
+
+	if ( ! $saved_time || $time != $saved_time ) {
+		wp_clear_scheduled_hook( 'draft_concluder_mailer' );
+		update_option( 'draft_concluder_prev_time', $time );
+	}
 
 	// Schedule an event if one doesn't already exist.
 
@@ -89,26 +97,6 @@ function draft_concluder_set_up_schedule() {
 }
 
 add_action( 'init', 'draft_concluder_set_up_schedule' );
-
-/**
- * Checked scheduled time
- *
- * If the scheduled time has changed, remove it.
- *
- * @param string $time Current schedule time.
- */
-function draft_concluder_check_scheduled_time( $time ) {
-
-	// If we have an old time saved, check to see if it's changed.
-	// If it has, remove the event and update the old one.
-
-	$saved_time = get_option( 'draft_concluder_prev_time' );
-
-	if ( false !== $saved_time && $time != $saved_time ) {
-		wp_clear_scheduled_hook( 'draft_concluder_mailer' );
-		update_option( 'draft_concluder_prev_time', $time );
-	}
-}
 
 /**
  * Scheduler engine
@@ -127,7 +115,7 @@ function draft_concluder_schedule_engine() {
 
 	// Check to see if it should be run.
 
-	if ( 'daily' == $when || ( 'daily' != $when && date( 'l' ) == $when ) ) {
+	if ( 'Daily' == $when || ( 'Daily' != $when && date( 'l' ) == $when ) ) {
 		draft_concluder_process_posts();
 	}
 
