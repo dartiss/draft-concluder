@@ -25,8 +25,8 @@ function draft_concluder_settings_init() {
 	add_settings_field( 'draft_concluder_time', __( 'Time to generate', 'draft-concluder' ), 'draft_concluder_time_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_time' ) );
 	register_setting( 'general', 'draft_concluder_time' );
 
-	// Add the settings field for which taxonomies to look through for drafts.
-	add_settings_field( 'draft_concluder_what', __( 'Taxonomies to check', 'draft-concluder' ), 'draft_concluder_what_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_what' ) );
+	// Add the settings field for which post types to look through for drafts.
+	add_settings_field( 'draft_concluder_what', __( 'Post types to check', 'draft-concluder' ), 'draft_concluder_what_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_what' ) );
 	register_setting( 'general', 'draft_concluder_what' );
 
 	// Add the settings field for how old drafts must be to qualify.
@@ -49,12 +49,12 @@ function draft_concluder_section_callback() {
 
 	$output = get_option( 'draft_concluder_output' );
 
-	echo esc_attr( __( 'These settings allow you to control when the emails are generated and what they should report on.', 'draft-concluder' ) );
+	echo esc_html( __( 'These settings allow you to control when the emails are generated and what they should report on.', 'draft-concluder' ) );
 
 	echo '<br/><br/>';
 	echo wp_kses( '<strong>' . __( 'Status: ', 'draft_concluder' ) . '</strong>', array( 'strong' => array() ) );
 	if ( ! $output ) {
-		echo esc_attr( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
+		echo esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
 	} else {
 		$timestamp = date( 'l jS \of F Y @ h:i:s A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
@@ -66,7 +66,7 @@ function draft_concluder_section_callback() {
 		}
 	}
 
-	echo esc_attr( $text ) . '<br/>';
+	echo esc_html( $text ) . '<br/>';
 }
 
 /**
@@ -160,7 +160,7 @@ function draft_concluder_time_callback() {
 /**
  * What? callback
  *
- * Add the settings field for which taxonomies to look through for drafts
+ * Add the settings field for which post types to look through for drafts
  */
 function draft_concluder_what_callback() {
 
@@ -193,7 +193,7 @@ function draft_concluder_age_callback() {
 		$option = 0;
 	}
 
-	echo '<input name="draft_concluder_age" size="3" maxlength="3" type="text" value="' . esc_attr( $option ) . '" />&nbsp;days';
+	echo '<input name="draft_concluder_age" size="3" maxlength="3" type="text" value="' . esc_html( $option ) . '" />&nbsp;days';
 }
 
 /**

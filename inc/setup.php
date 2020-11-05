@@ -96,7 +96,7 @@ function draft_concluder_set_up_schedule() {
 	}
 }
 
-add_action( 'init', 'draft_concluder_set_up_schedule' );
+add_action( 'admin_init', 'draft_concluder_set_up_schedule' );
 
 /**
  * Scheduler engine

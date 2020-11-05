@@ -21,13 +21,18 @@ function draft_concluder_process_posts( $debug = false ) {
 	$output = array();
 	$errors = 0;
 
-	// Get age of acceptable posts.
-	// If not set, assume 0 which means an unlimited.
-
 	$since = get_option( 'draft_concluder_since' );
-	$age   = get_option( 'draft_concluder_age' );
+
+	// Get age of acceptable posts. If age not set, assume 0 which means an unlimited.
+	$age = get_option( 'draft_concluder_age' );
 	if ( ! $age ) {
 		$age = 0;
+	}
+
+	// Get how regularly it's due to run. If not daily, then assume weekly.
+	$when = strtolower( get_option( 'draft_concluder_when' ) );
+	if ( 'daily' != $when ) {
+		$when = 'weekly';
 	}
 
 	// Set up the post types that will be searched for.
@@ -108,11 +113,11 @@ function draft_concluder_process_posts( $debug = false ) {
 						'###MODIFIED###',
 					),
 					array(
-						$draft_count,
-						$post->post_title,
-						get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit',
-						substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ),
-						substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ),
+						esc_html( $draft_count ),
+						esc_html( $post->post_title ),
+						esc_html( get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit' ),
+						esc_html( substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ) ),
+						esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ),
 					),
 					$message
 				);
@@ -154,8 +159,8 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 					'###NUMBER###',
 				),
 				array(
-					$when,
-					$draft_count,
+					esc_html( $when ),
+					esc_html( $draft_count ),
 				),
 				$header
 			);
@@ -169,7 +174,7 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 			}
 			$body = $header . $message;
 
-			$display_out       = '<p>' . esc_attr__( 'To: ', 'draft_concluder' ) . esc_attr( $email_addy ) . '<br/>' . esc_attr__( 'Subject: ', 'draft_concluder' ) . esc_attr( $subject ) . '<br/><br/>' . nl2br( esc_attr( $body ) ) . '</p>';
+			$display_out       = '<p>' . esc_html__( 'To: ', 'draft_concluder' ) . esc_html( $email_addy ) . '<br/>' . esc_html__( 'Subject: ', 'draft_concluder' ) . esc_html( $subject ) . '<br/><br/>' . nl2br( esc_html( $body ) ) . '</p>';
 			$output['emails'] .= $display_out;
 
 			// If debugging, output to screen - otherwise, email the results.
