@@ -21,10 +21,11 @@ Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/131
 * Each user, who has drafts that then reminding about, will receive an email. No, they can't unsubscribe from them
 * Each email will show the number of drafts, along with a reminder of each of them
 * Optional ability to prevent the plugin from being deactivated (allow you to avoid the temptation to do so rather than, you know, deal with the drafts)
+* Debug features to allow to verify what's being sent
 
 Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/WordPress-Coding-Standards) and [WordPress VIP](https://github.com/Automattic/VIP-Coding-Standards) coding standards 🎉
 
-Iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
 
 👉 Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues 👈
 
@@ -35,17 +36,33 @@ Draft Concluder can be found and installed via the Plugin menu within WordPress 
 1. Upload the entire `draft-concluder` folder to your `wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress administration.
 
-It's now ready to go but, if you want to tweak further, head to Settings -> Writing.
+It's now ready to go but, if you want to tweak further, head to Settings -> General.
 
 == Frequently Asked Questions ==
 
-= The email isn't turn up at the time that it's scheduled! =
+= Why's it called Draft Concluder? =
 
-The WordPress even scheduler is an interesting beast. It's totally reliant on someone visiting your site for it to trigger - so if you set it to 1am but nobody visits until 8am then, yeah, you won't get email until after 8am.
+Because it helps you find an end to those annoying drafts that sit around and never get completed. And it's a pun on "draft excluder". Yes, I know - blame my SO, who came up with the name.
+
+= What does the "Status" on the Settings screen mean? =
+
+In Settings -> General -> Draft Concluder, you'll see, under the title, a status - this will tell you when it last ran and whether it was successful or not.
+
+The success is dependant on whether any error was returned when sending out emails - a failure would indicate a problem with `wp_mail` and will need further investigation.
+
+= The email isn't turning up at the time that it's scheduled! =
+
+The internal WordPress scheduler is an interesting beast. It's totally reliant on someone visiting your site for it to trigger - so if you set it to 1am but nobody visits until 8am then, yeah, you won't get email until after 8am.
+
+Thankfully, I thought of you when I wrote the plugin. As per the previous question, there's a status on the settings screen. Additionally, there are 2 shortcodes that you can add to any post or page to help you out.
+
+`[dc_now]` - this will run the email generator and show, on screen, what would be sent if you were running it now.
+
+`[dc_last_run]` - this will show, on screen, what happened during the last scheduled run. So, if the status in the settings shows it ran, you can use this shortcode to display what was actually sent and to whom.
 
 = Can I unsubscribe from the email that I'm sent? =
 
-Heck, no. That's the beauty of this plugin. 
+Heck, no. That's the beauty of this plugin.
 
 = Can I just send the email to spam instead? =
 
