@@ -5,7 +5,7 @@ Tags: drafts, email, mail, pages, posts, reminder
 Requires at least: 3.1
 Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 0.1
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,14 +80,18 @@ Crack open your site's `wp-config.php` and add the following line of code...
 
 And the deed is done - you can no longer disable the plugin (cue diabolical laughter).
 
+== Screenshots ==
+
+1. Available options, available in Settings -> General
+
 == Changelog ==
 
-I use symantic versioning, with the first release being 0.1.
+I use symantic versioning, with the first release being 1.0.
 
-= 0.1 =
+= 1.0 =
 * Initial release
 
 == Upgrade Notice ==
 
-= 0.1 =
+= 1.0 =
 * Initial release
