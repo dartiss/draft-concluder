@@ -90,16 +90,24 @@ function draft_concluder_process_posts( $debug = false ) {
 				}
 			}
 
+			// If the modified date is different to the creation date, then we'll output it.
+			// In which case, we'll build an appropriate end-of-sentence.
+			$modified = '';
+			if ( $post->post_date != $post->post_modified ) {
+				/* translators: %1$s: the date the post was last modified */
+				$modified = sprint( __( ' and last edited on %1$s', 'draft_concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
+			}
+
 			if ( $include_draft ) {
 
 				// Build a list of drafts that require the user's attention.
-
 				$draft_count ++;
 
 				/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
 				$message .= __(
 					'###COUNT###. ###TITLE### - ###LINK###
-    This was created on ###CREATED### and last edited on ###MODIFIED###.
+    This was created on ###CREATED######MODIFIED###.
+
 ',
 					'draft_concluder'
 				);
@@ -117,7 +125,7 @@ function draft_concluder_process_posts( $debug = false ) {
 						esc_html( $post->post_title ),
 						esc_html( get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit' ),
 						esc_html( substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ) ),
-						esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ),
+						$modified,
 					),
 					$message
 				);
@@ -125,7 +133,6 @@ function draft_concluder_process_posts( $debug = false ) {
 		}
 
 		// Add a header to the email content. A different message is used dependant on whether there is 1 or more drafts.
-
 		if ( 0 < $draft_count ) {
 
 			if ( 1 == $draft_count ) {
