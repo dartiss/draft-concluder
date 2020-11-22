@@ -14,6 +14,6 @@ Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/Wor
 
 Always forgetting to complete posts or you have other people on your site who do? This is the draft botherer that you need!
 
-I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
 
 <p align="right"><a href="https://wordpress.org/plugins/draft-concluder/"><img src="https://img.shields.io/wordpress/plugin/dt/draft-concluder?label=wp.org%20downloads&style=for-the-badge">&nbsp;<img src="https://img.shields.io/wordpress/plugin/stars/draft-concluder?color=orange&style=for-the-badge"></a></p>

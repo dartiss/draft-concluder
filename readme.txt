@@ -1,11 +1,11 @@
 === Draft Concluder ===
 Contributors: dartiss
 Donate link: https://artiss.blog/donate
-Tags: drafts, email, mail, pages, posts, reminder
-Requires at least: 3.1
+Tags: drafts, email, pages, posts, reminder
+Requires at least: 4.6
 Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 1.0.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/131
 
 Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/WordPress-Coding-Standards) and [WordPress VIP](https://github.com/Automattic/VIP-Coding-Standards) coding standards 🎉
 
-I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
 
 👉 Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues 👈
 
@@ -86,7 +86,7 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 
 == Changelog ==
 
-I use symantic versioning, with the first release being 1.0.
+I use semantic versioning, with the first release being 1.0.
 
 = 1.0.1 =
 * Bug: In what must be the quickest time from initial release to first bug report, thanks to [JeanPaulH](https://wordpress.org/support/users/djr/) for finding a stray comma!

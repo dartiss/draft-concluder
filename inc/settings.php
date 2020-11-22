@@ -77,40 +77,20 @@ function draft_concluder_section_callback() {
 function draft_concluder_when_callback() {
 
 	$option = get_option( 'draft_concluder_when' );
+	if ( ! $option ) {
+		$option = 'Monday';
+	}
 
-	echo '<select name="draft_concluder_when"><option ';
-	if ( 'Daily' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Daily">Daily</option><option ';
-	if ( 'Monday' == $option || ! $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Monday">Monday</option><option ';
-	if ( 'Tuesday' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Tuesday">Tuesday</option><option ';
-	if ( 'Wednesday' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Wednesday">Wednesday</option><option ';
-	if ( 'Thursday' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Thursday">Thursday</option><option ';
-	if ( 'Friday' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Friday">Friday</option><option ';
-	if ( 'Saturday' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Saturday">Saturday</option><option ';
-	if ( 'Sunday' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="Sunday">Sunday</option></select>';
+	echo '<select name="draft_concluder_when">';
+	echo '<option ' . selected( 'Daily', $option, false ) . ' value="Daily">Daily</option>';
+	echo '<option ' . selected( 'Monday', $option, false ) . ' value="Monday">Monday</option>';
+	echo '<option ' . selected( 'Tuesday', $option, false ) . ' value="Tuesday">Tuesday</option>';
+	echo '<option ' . selected( 'Wednesday', $option, false ) . ' value="Wednesday">Wednesday</option>';
+	echo '<option ' . selected( 'Thursday', $option, false ) . ' value="Thursday">Thursday</option>';
+	echo '<option ' . selected( 'Friday', $option, false ) . ' value="Friday">Friday</option>';
+	echo '<option ' . selected( 'Saturday', $option, false ) . ' value="Saturday">Saturday</option>';
+	echo '<option ' . selected( 'Sunday', $option, false ) . ' value="Sunday">Sunday</option>';
+	echo '</select>';
 }
 
 /**
@@ -121,40 +101,36 @@ function draft_concluder_when_callback() {
 function draft_concluder_time_callback() {
 
 	$option = get_option( 'draft_concluder_time' );
+	if ( ! $option ) {
+		$option = '1am';
+	}
 
-	echo '<select name="draft_concluder_time"><option ';
-	if ( '1am' == $option || ! $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="1am">1am</option><option ';
-	if ( '4am' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="4am">4am</option><option ';
-	if ( '7am' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="7am">7am</option><option ';
-	if ( '11am' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="11am">11am</option><option ';
-	if ( '1pm' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="1pm">1pm</option><option ';
-	if ( '4pm' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="4pm">4pm</option><option ';
-	if ( '7pm' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="7pm">7pm</option><option ';
-	if ( '10pm' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="10pm">10pm</option></select>';
+	echo '<select name="draft_concluder_time">';
+	echo '<option ' . selected( '12am', $option, false ) . ' value="12am">Midnight</option>';
+	echo '<option ' . selected( '1am', $option, false ) . ' value="1am">1am</option>';
+	echo '<option ' . selected( '2am', $option, false ) . ' value="2am">2am</option>';
+	echo '<option ' . selected( '3am', $option, false ) . ' value="3am">3am</option>';
+	echo '<option ' . selected( '4am', $option, false ) . ' value="4am">4am</option>';
+	echo '<option ' . selected( '5am', $option, false ) . ' value="5am">5am</option>';
+	echo '<option ' . selected( '6am', $option, false ) . ' value="6am">6am</option>';
+	echo '<option ' . selected( '7am', $option, false ) . ' value="7am">7am</option>';
+	echo '<option ' . selected( '8am', $option, false ) . ' value="8am">8am</option>';
+	echo '<option ' . selected( '9am', $option, false ) . ' value="9am">9am</option>';
+	echo '<option ' . selected( '10am', $option, false ) . ' value="10am">10am</option>';
+	echo '<option ' . selected( '11am', $option, false ) . ' value="11am">11am</option>';
+	echo '<option ' . selected( '12pm', $option, false ) . ' value="12pm">Midday</option>';
+	echo '<option ' . selected( '1pm', $option, false ) . ' value="1pm">1pm</option>';
+	echo '<option ' . selected( '2pm', $option, false ) . ' value="2pm">2pm</option>';
+	echo '<option ' . selected( '3pm', $option, false ) . ' value="3pm">3pm</option>';
+	echo '<option ' . selected( '4pm', $option, false ) . ' value="4pm">4pm</option>';
+	echo '<option ' . selected( '5pm', $option, false ) . ' value="5pm">5pm</option>';
+	echo '<option ' . selected( '6pm', $option, false ) . ' value="6pm">6pm</option>';
+	echo '<option ' . selected( '7pm', $option, false ) . ' value="7pm">7pm</option>';
+	echo '<option ' . selected( '8pm', $option, false ) . ' value="8pm">8pm</option>';
+	echo '<option ' . selected( '9pm', $option, false ) . ' value="9pm">9pm</option>';
+	echo '<option ' . selected( '10pm', $option, false ) . ' value="10pm">10pm</option>';
+	echo '<option ' . selected( '11pm', $option, false ) . ' value="11pm">11pm</option>';
+	echo '</select>';
 }
 
 /**
@@ -165,20 +141,15 @@ function draft_concluder_time_callback() {
 function draft_concluder_what_callback() {
 
 	$option = get_option( 'draft_concluder_what' );
+	if ( ! $option ) {
+		$option = 'postpage';
+	}
 
-	echo '<select name="draft_concluder_what"><option ';
-	if ( 'post' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="post">Posts</option><option ';
-	if ( 'page' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="page">Pages</option><option ';
-	if ( 'postpage' == $option || ! $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="postpage">Posts & Pages</option></select>';
+	echo '<select name="draft_concluder_what">';
+	echo '<option ' . selected( 'post', $option, false ) . ' value="post">Posts</option>';
+	echo '<option ' . selected( 'page', $option, false ) . ' value="page">Pages</option>';
+	echo '<option ' . selected( 'postpage', $option, false ) . ' value="post">Posts & Pages</option>';
+	echo '</select>';
 }
 
 /**
@@ -204,14 +175,12 @@ function draft_concluder_age_callback() {
 function draft_concluder_since_callback() {
 
 	$option = get_option( 'draft_concluder_since' );
+	if ( ! $option ) {
+		$option = 'created';
+	}
 
-	echo '<select name="draft_concluder_since"><option ';
-	if ( 'created' == $option || ! $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="created">Since they were created</option><option ';
-	if ( 'modified' == $option ) {
-		echo 'selected="selected" ';
-	}
-	echo 'value="modified">Since they were last updated</option></select>';
+	echo '<select name="draft_concluder_since">';
+	echo '<option ' . selected( 'created', $option, false ) . ' value="created">Since they were created</option>';
+	echo '<option ' . selected( 'modified', $option, false ) . ' value="modified">Since they were last updated</option>';
+	echo '</select>';
 }

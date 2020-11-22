@@ -180,7 +180,7 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 			// If debugging, output to screen - otherwise, email the results.
 
 			if ( $debug ) {
-				echo wp_kses(
+				return wp_kses(
 					$display_out,
 					array(
 						'br' => array(),
