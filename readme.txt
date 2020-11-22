@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
+Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203),  and mentioned by [Post Status](https://poststatus.com/), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
 
 * Send emails out on a daily or weekly schedule and at a time that you'd prefer
 * Look for draft pages as well as posts, if you like. Or just pages, if that's what you want. We won't judge
@@ -88,6 +88,14 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 
 I use semantic versioning, with the first release being 1.0.
 
+= 1.1 =
+* Enhancement: Making better use of `selected` command for my settings output (thanks to [Tom Nowell](https://tomjn.com/))
+* Enhancement: You can now choose any hour of the day for the email to be generated, not just select hours
+* Enhancement: Various improvements to plugin meta and this README
+* Enhancement: Improvements to email format (thanks to [Michelle Keefer](https://consultmk.com/))
+* Enhancement: When changing the hour that the email is generated, and you've chosen a daily run, it will be produced same day if the hour hasn't already passed
+* Bug: Shortcodes now correctly output (thanks to [Tom Nowell](https://tomjn.com/))
+
 = 1.0.1 =
 * Bug: In what must be the quickest time from initial release to first bug report, thanks to [JeanPaulH](https://wordpress.org/support/users/djr/) for finding a stray comma!
 
@@ -96,5 +104,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-* Bug fix
+= 1.1 =
+* Minor enhancements
