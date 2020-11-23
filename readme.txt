@@ -1,11 +1,11 @@
 === Draft Concluder ===
 Contributors: dartiss
 Donate link: https://artiss.blog/donate
-Tags: drafts, email, mail, pages, posts, reminder
-Requires at least: 3.1
+Tags: drafts, email, pages, posts, reminder
+Requires at least: 4.6
 Tested up to: 5.5
 Requires PHP: 5.3
-Stable tag: 1.0.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
+Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203),  and mentioned by [Post Status](https://poststatus.com/), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
 
 * Send emails out on a daily or weekly schedule and at a time that you'd prefer
 * Look for draft pages as well as posts, if you like. Or just pages, if that's what you want. We won't judge
@@ -25,9 +25,15 @@ Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/131
 
 Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/WordPress-Coding-Standards) and [WordPress VIP](https://github.com/Automattic/VIP-Coding-Standards) coding standards 🎉
 
-I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
 
 👉 Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues 👈
+
+== Mentions ==
+
+Draft Concluder was mentioned in issue 421 of [the Post Status newsletter](https://poststatus.com/newsletter/) (published 16th November 2020).
+
+It was also mentioned in [edition 21 of the WP Weekly newsletter](https://thewpweekly.com/21/) (published 23rd November 2020)
 
 == Installation ==
 
@@ -86,7 +92,17 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 
 == Changelog ==
 
-I use symantic versioning, with the first release being 1.0.
+I use semantic versioning, with the first release being 1.0.
+
+= 1.1 =
+* Enhancement: Making better use of `selected` command for my settings output (thanks to [Tom Nowell](https://tomjn.com/))
+* Enhancement: You can now choose any hour of the day for the email to be generated, not just select hours
+* Enhancement: Various improvements to plugin meta and this README
+* Enhancement: Improvements to email format (thanks to [Michelle Keefer](https://consultmk.com/))
+* Enhancement: When changing the hour that the email is generated, and you've chosen a daily run, it will be produced same day if the hour hasn't already passed
+* Enhancement: Added next run time to the settings output
+* Enhancement: Improved internationalization
+* Bug: Shortcodes now correctly output (thanks to [Tom Nowell](https://tomjn.com/))
 
 = 1.0.1 =
 * Bug: In what must be the quickest time from initial release to first bug report, thanks to [JeanPaulH](https://wordpress.org/support/users/djr/) for finding a stray comma!
@@ -96,5 +112,5 @@ I use symantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-* Bug fix
+= 1.1 =
+* Minor enhancements and some bug fixes. Basically, what you'd expect from someone stuck in COVID lockdown.

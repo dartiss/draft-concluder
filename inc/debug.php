@@ -17,7 +17,7 @@
  */
 function draft_concluder_now_shortcode( $paras, $content ) {
 
-	draft_concluder_process_posts( true );
+	return draft_concluder_process_posts( true );
 
 }
 
@@ -35,10 +35,10 @@ add_shortcode( 'dc_now', 'draft_concluder_now_shortcode' );
 function draft_concluder_last_run_shortcode( $paras, $content ) {
 
 	$output = get_option( 'draft_concluder_output' );
+	$debug  = '';
 
-	echo '<p>';
 	if ( ! $output ) {
-		echo esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
+		$debug .= esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
 	} else {
 		$timestamp = date( 'l jS \of F Y h:i:s A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
@@ -48,8 +48,8 @@ function draft_concluder_last_run_shortcode( $paras, $content ) {
 			/* translators: %1$s: timestamp %2$s: number of errors */
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with %2$s errors.', 'draft_concluder' ), esc_html( $timestamp ), esc_html( $output['errors'] ) );
 		}
-		echo esc_html( $text ) . '<br/>';
-		echo wp_kses(
+		$debug .= esc_html( $text ) . '<br/>';
+		$debug .= wp_kses(
 			$output['emails'],
 			array(
 				'br' => array(),
@@ -57,7 +57,8 @@ function draft_concluder_last_run_shortcode( $paras, $content ) {
 			)
 		);
 	}
-	echo '</p>';
+
+	return $debug;
 }
 
 add_shortcode( 'dc_last_run', 'draft_concluder_last_run_shortcode' );

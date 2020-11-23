@@ -1,6 +1,6 @@
 # Draft Concluder
 
-Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
+<img src="https://ps.w.org/draft-concluder/assets/icon-128x128.png" align="left">Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/1314494422529331203), this plugin is designed to be a reminder to those who leave draft posts unloved. And, yes, all of John's ideas are here, with more to boot.
 
 * Send emails out on a daily or weekly schedule and at a time that you'd prefer
 * Look for draft pages as well as posts, if you like. Or just pages, if that's what you want. We won't judge
@@ -14,6 +14,6 @@ Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/Wor
 
 Always forgetting to complete posts or you have other people on your site who do? This is the draft botherer that you need!
 
-I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.linkedin.com/in/jankirathore/) ♥️
+I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
 
 <p align="right"><a href="https://wordpress.org/plugins/draft-concluder/"><img src="https://img.shields.io/wordpress/plugin/dt/draft-concluder?label=wp.org%20downloads&style=for-the-badge">&nbsp;<img src="https://img.shields.io/wordpress/plugin/stars/draft-concluder?color=orange&style=for-the-badge"></a></p>
