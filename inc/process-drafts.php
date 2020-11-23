@@ -95,7 +95,7 @@ function draft_concluder_process_posts( $debug = false ) {
 			$modified = '';
 			if ( $post->post_date != $post->post_modified ) {
 				/* translators: %1$s: the date the post was last modified */
-				$modified = sprint( __( ' and last edited on %1$s', 'draft_concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
+				$modified = sprintf( __( ' and last edited on %1$s', 'draft_concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
 			}
 
 			if ( $include_draft ) {

@@ -85,7 +85,7 @@ function draft_concluder_set_up_schedule() {
 	$saved_time = get_option( 'draft_concluder_prev_time' );
 
 	if ( ! $saved_time || $time != $saved_time ) {
-		if ( strtotime( 'today ' . $time ) < strtotime( 'now' ) ) {
+		if ( strtotime( 'today ' . $time ) > strtotime( 'now' ) ) {
 			$day = 'today';
 		}
 		wp_clear_scheduled_hook( 'draft_concluder_mailer' );

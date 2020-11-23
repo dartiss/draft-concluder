@@ -6,7 +6,7 @@
  * @author            David Artiss
  * @license           GPL-2.0-or-later
  *
- * Plugin Name:       Draft List
+ * Plugin Name:       Draft Concluder
  * Plugin URI:        https://wordpress.org/plugins/draft-concluder/
  * Description:       📝 Email users that have outstanding drafts.
  * Version:           1.1

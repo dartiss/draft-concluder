@@ -51,12 +51,13 @@ function draft_concluder_section_callback() {
 
 	echo esc_html( __( 'These settings allow you to control when the emails are generated and what they should report on.', 'draft-concluder' ) );
 
+	// Show the current status of the event run.
 	echo '<br/><br/>';
 	echo wp_kses( '<strong>' . __( 'Status: ', 'draft_concluder' ) . '</strong>', array( 'strong' => array() ) );
 	if ( ! $output ) {
 		echo esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
 	} else {
-		$timestamp = date( 'l jS \of F Y @ h:i:s A', $output['timestamp'] );
+		$timestamp = date( 'l jS \o\f F Y \a\t g:i A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
 			/* translators: %1$s: timestamp */
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft_concluder' ), $timestamp );
@@ -64,6 +65,13 @@ function draft_concluder_section_callback() {
 			/* translators: %1$s: timestamp */
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with errors.', 'draft_concluder' ), $timestamp );
 		}
+	}
+
+	// If an event has been scheduled, output the next run time.
+	if ( false !== wp_next_scheduled( 'draft_concluder_mailer' ) ) {
+		$next_run = date( 'l jS \o\f F Y \a\t g:i A', wp_next_scheduled( 'draft_concluder_mailer' ) );
+		/* translators: %1$s: timestamp */
+		$text .= '&nbsp;' . sprintf( __( 'It is next due to run on %1$s.', 'draft_concluder' ), $next_run );
 	}
 
 	echo esc_html( $text ) . '<br/>';

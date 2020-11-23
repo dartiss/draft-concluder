@@ -29,6 +29,12 @@ I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he pro
 
 👉 Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues 👈
 
+== Mentions ==
+
+Draft Concluder was mentioned in issue 421 of [the Post Status newsletter](https://poststatus.com/newsletter/) (published 16th November 2020).
+
+It was also mentioned in [edition 21 of the WP Weekly newsletter](https://thewpweekly.com/21/) (published 23rd November 2020)
+
 == Installation ==
 
 Draft Concluder can be found and installed via the Plugin menu within WordPress administration (Plugins -> Add New). Alternatively, it can be downloaded from WordPress.org and installed manually...
@@ -94,6 +100,8 @@ I use semantic versioning, with the first release being 1.0.
 * Enhancement: Various improvements to plugin meta and this README
 * Enhancement: Improvements to email format (thanks to [Michelle Keefer](https://consultmk.com/))
 * Enhancement: When changing the hour that the email is generated, and you've chosen a daily run, it will be produced same day if the hour hasn't already passed
+* Enhancement: Added next run time to the settings output
+* Enhancement: Improved internationalization
 * Bug: Shortcodes now correctly output (thanks to [Tom Nowell](https://tomjn.com/))
 
 = 1.0.1 =
@@ -105,4 +113,4 @@ I use semantic versioning, with the first release being 1.0.
 == Upgrade Notice ==
 
 = 1.1 =
-* Minor enhancements
+* Minor enhancements and some bug fixes. Basically, what you'd expect from someone stuck in COVID lockdown.
