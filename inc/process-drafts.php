@@ -105,7 +105,7 @@ function draft_concluder_process_posts( $debug = false ) {
 
 				/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
 				$message .= __(
-					'###COUNT###. ###TITLE### - ###LINK###
+					'###COUNT###. ###TITLE### - ###LINK### (###WORDS### words)
     This was created on ###CREATED######MODIFIED###.
 
 ',
@@ -119,6 +119,7 @@ function draft_concluder_process_posts( $debug = false ) {
 						'###LINK###',
 						'###CREATED###',
 						'###MODIFIED###',
+						'###WORDS###',
 					),
 					array(
 						esc_html( $draft_count ),
@@ -126,6 +127,7 @@ function draft_concluder_process_posts( $debug = false ) {
 						esc_html( get_admin_url() . 'post.php?post=' . $post->ID . '&action=edit' ),
 						esc_html( substr( $post->post_date, 0, strlen( $post->post_date ) - 3 ) ),
 						$modified,
+						esc_html( str_word_count( $post->post_content ) ),
 					),
 					$message
 				);

@@ -9,7 +9,7 @@
  * Plugin Name:       Draft Concluder
  * Plugin URI:        https://wordpress.org/plugins/draft-concluder/
  * Description:       📝 Email users that have outstanding drafts.
- * Version:           1.1
+ * Version:           1.1.1
  * Requires at least: 4.6
  * Requires PHP:      5.3
  * Author:            David Artiss

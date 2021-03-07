@@ -5,7 +5,7 @@ Tags: drafts, email, pages, posts, reminder
 Requires at least: 4.6
 Tested up to: 5.7
 Requires PHP: 5.3
-Stable tag: 1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,9 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 
 I use semantic versioning, with the first release being 1.0.
 
+= 1.1.1 =
+* Enhancement: Added a word count to the draft information
+
 = 1.1 =
 * Enhancement: Making better use of `selected` command for my settings output (thanks to [Tom Nowell](https://tomjn.com/))
 * Enhancement: You can now choose any hour of the day for the email to be generated, not just select hours
@@ -112,5 +115,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 1.1 =
-* Minor enhancements and some bug fixes. Basically, what you'd expect from someone stuck in COVID lockdown.
+= 1.1.1 =
+* Added a word count for each draft
