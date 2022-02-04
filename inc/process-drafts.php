@@ -95,7 +95,7 @@ function draft_concluder_process_posts( $debug = false ) {
 			$modified = '';
 			if ( $post->post_date != $post->post_modified ) {
 				/* translators: %1$s: the date the post was last modified */
-				$modified = sprintf( __( ' and last edited on %1$s', 'draft_concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
+				$modified = sprintf( __( ' and last edited on %1$s', 'draft-concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
 			}
 
 			if ( $include_draft ) {
@@ -183,7 +183,7 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 			}
 			$body = $header . $message;
 
-			$display_out       = '<p>' . esc_html__( 'To: ', 'draft_concluder' ) . esc_html( $email_addy ) . '<br/>' . esc_html__( 'Subject: ', 'draft_concluder' ) . esc_html( $subject ) . '<br/><br/>' . nl2br( esc_html( $body ) ) . '</p>';
+			$display_out       = '<p>' . esc_html__( 'To: ', 'draft-concluder' ) . esc_html( $email_addy ) . '<br/>' . esc_html__( 'Subject: ', 'draft-concluder' ) . esc_html( $subject ) . '<br/><br/>' . nl2br( esc_html( $body ) ) . '</p>';
 			$output['emails'] .= $display_out;
 
 			// If debugging, output to screen - otherwise, email the results.

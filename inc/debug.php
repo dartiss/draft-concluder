@@ -38,15 +38,15 @@ function draft_concluder_last_run_shortcode( $paras, $content ) {
 	$debug  = '';
 
 	if ( ! $output ) {
-		$debug .= esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
+		$debug .= esc_html( __( 'Draft Concluder has not yet run.', 'draft-concluder' ) );
 	} else {
 		$timestamp = date( 'l jS \of F Y h:i:s A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
 			/* translators: %1$s: timestamp */
-			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft_concluder' ), esc_html( $timestamp ) );
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft-concluder' ), esc_html( $timestamp ) );
 		} else {
 			/* translators: %1$s: timestamp %2$s: number of errors */
-			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with %2$s errors.', 'draft_concluder' ), esc_html( $timestamp ), esc_html( $output['errors'] ) );
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with %2$s errors.', 'draft-concluder' ), esc_html( $timestamp ), esc_html( $output['errors'] ) );
 		}
 		$debug .= esc_html( $text ) . '<br/>';
 		$debug .= wp_kses(
