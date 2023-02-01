@@ -150,7 +150,7 @@ add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
 function draft_concluder_settings_init() {
 
 	// Add the new section to General settings.
-	add_settings_section( 'draft_concluder_section', __( 'Draft Concluder', 'draft_concluder' ), 'draft_concluder_section_callback', 'general' );
+	add_settings_section( 'draft_concluder_section', __( 'Draft Concluder', 'draft-concluder' ), 'draft_concluder_section_callback', 'general' );
 
 	// Add the settings field for what day to generate the emails.
 	add_settings_field( 'draft_concluder_when', __( 'Day to generate', 'draft-concluder' ), 'draft_concluder_when_callback', 'general', 'draft_concluder_section', array( 'label_for' => 'draft_concluder_when' ) );
@@ -188,17 +188,17 @@ function draft_concluder_section_callback() {
 
 	// Show the current status of the event run.
 	echo '<br/><br/>';
-	echo wp_kses( '<strong>' . __( 'Status: ', 'draft_concluder' ) . '</strong>', array( 'strong' => array() ) );
+	echo wp_kses( '<strong>' . __( 'Status: ', 'draft-concluder' ) . '</strong>', array( 'strong' => array() ) );
 	if ( ! $output ) {
-		echo esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
+		echo esc_html( __( 'Draft Concluder has not yet run.', 'draft-concluder' ) );
 	} else {
 		$timestamp = gmdate( 'l jS \o\f F Y \a\t g:i A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
 			/* translators: %1$s: timestamp */
-			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft_concluder' ), $timestamp );
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft-concluder' ), $timestamp );
 		} else {
 			/* translators: %1$s: timestamp */
-			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with errors.', 'draft_concluder' ), $timestamp );
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with errors.', 'draft-concluder' ), $timestamp );
 		}
 	}
 
@@ -206,7 +206,7 @@ function draft_concluder_section_callback() {
 	if ( false !== wp_next_scheduled( 'draft_concluder_mailer' ) ) {
 		$next_run = gmdate( 'l jS \o\f F Y \a\t g:i A', wp_next_scheduled( 'draft_concluder_mailer' ) );
 		/* translators: %1$s: timestamp */
-		$text .= '&nbsp;' . sprintf( __( 'It is next due to run on %1$s.', 'draft_concluder' ), $next_run );
+		$text .= '&nbsp;' . sprintf( __( 'It is next due to run on %1$s.', 'draft-concluder' ), $next_run );
 	}
 
 	echo esc_html( $text ) . '<br/>';
@@ -225,14 +225,14 @@ function draft_concluder_when_callback() {
 	}
 
 	echo '<select name="draft_concluder_when">';
-	echo '<option ' . selected( 'Daily', $option, false ) . ' value="Daily">' . esc_html__( 'Daily', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Monday', $option, false ) . ' value="Monday">' . esc_html__( 'Monday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Tuesday', $option, false ) . ' value="Tuesday">' . esc_html__( 'Tuesday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Wednesday', $option, false ) . ' value="Wednesday">' . esc_html__( 'Wednesday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Thursday', $option, false ) . ' value="Thursday">' . esc_html__( 'Thursday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Friday', $option, false ) . ' value="Friday">' . esc_html__( 'Friday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Saturday', $option, false ) . ' value="Saturday">' . esc_html__( 'Saturday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'Sunday', $option, false ) . ' value="Sunday">' . esc_html__( 'Sunday', 'draft_concluder' ) . '</option>';
+	echo '<option ' . selected( 'Daily', $option, false ) . ' value="Daily">' . esc_html__( 'Daily', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Monday', $option, false ) . ' value="Monday">' . esc_html__( 'Monday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Tuesday', $option, false ) . ' value="Tuesday">' . esc_html__( 'Tuesday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Wednesday', $option, false ) . ' value="Wednesday">' . esc_html__( 'Wednesday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Thursday', $option, false ) . ' value="Thursday">' . esc_html__( 'Thursday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Friday', $option, false ) . ' value="Friday">' . esc_html__( 'Friday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Saturday', $option, false ) . ' value="Saturday">' . esc_html__( 'Saturday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'Sunday', $option, false ) . ' value="Sunday">' . esc_html__( 'Sunday', 'draft-concluder' ) . '</option>';
 	echo '</select>';
 }
 
@@ -249,30 +249,30 @@ function draft_concluder_time_callback() {
 	}
 
 	echo '<select name="draft_concluder_time">';
-	echo '<option ' . selected( '12am', $option, false ) . ' value="12am">' . esc_html__( 'Midnight', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '1am', $option, false ) . ' value="1am">' . esc_html__( '1am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '2am', $option, false ) . ' value="2am">' . esc_html__( '2am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '3am', $option, false ) . ' value="3am">' . esc_html__( '3am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '4am', $option, false ) . ' value="4am">' . esc_html__( '4am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '5am', $option, false ) . ' value="5am">' . esc_html__( '5am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '6am', $option, false ) . ' value="6am">' . esc_html__( '6am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '7am', $option, false ) . ' value="7am">' . esc_html__( '7am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '8am', $option, false ) . ' value="8am">' . esc_html__( '8am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '9am', $option, false ) . ' value="9am">' . esc_html__( '9am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '10am', $option, false ) . ' value="10am">' . esc_html__( '10am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '11am', $option, false ) . ' value="11am">' . esc_html__( '11am', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '12pm', $option, false ) . ' value="12pm">' . esc_html__( 'Midday', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '1pm', $option, false ) . ' value="1pm">' . esc_html__( '1pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '2pm', $option, false ) . ' value="2pm">' . esc_html__( '2pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '3pm', $option, false ) . ' value="3pm">' . esc_html__( '3pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '4pm', $option, false ) . ' value="4pm">' . esc_html__( '4pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '5pm', $option, false ) . ' value="5pm">' . esc_html__( '5pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '6pm', $option, false ) . ' value="6pm">' . esc_html__( '6pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '7pm', $option, false ) . ' value="7pm">' . esc_html__( '7pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '8pm', $option, false ) . ' value="8pm">' . esc_html__( '8pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '9pm', $option, false ) . ' value="9pm">' . esc_html__( '9pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '10pm', $option, false ) . ' value="10pm">' . esc_html__( '10pm', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( '11pm', $option, false ) . ' value="11pm">' . esc_html__( '11pm', 'draft_concluder' ) . '</option>';
+	echo '<option ' . selected( '12am', $option, false ) . ' value="12am">' . esc_html__( 'Midnight', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '1am', $option, false ) . ' value="1am">' . esc_html__( '1am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '2am', $option, false ) . ' value="2am">' . esc_html__( '2am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '3am', $option, false ) . ' value="3am">' . esc_html__( '3am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '4am', $option, false ) . ' value="4am">' . esc_html__( '4am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '5am', $option, false ) . ' value="5am">' . esc_html__( '5am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '6am', $option, false ) . ' value="6am">' . esc_html__( '6am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '7am', $option, false ) . ' value="7am">' . esc_html__( '7am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '8am', $option, false ) . ' value="8am">' . esc_html__( '8am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '9am', $option, false ) . ' value="9am">' . esc_html__( '9am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '10am', $option, false ) . ' value="10am">' . esc_html__( '10am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '11am', $option, false ) . ' value="11am">' . esc_html__( '11am', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '12pm', $option, false ) . ' value="12pm">' . esc_html__( 'Midday', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '1pm', $option, false ) . ' value="1pm">' . esc_html__( '1pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '2pm', $option, false ) . ' value="2pm">' . esc_html__( '2pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '3pm', $option, false ) . ' value="3pm">' . esc_html__( '3pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '4pm', $option, false ) . ' value="4pm">' . esc_html__( '4pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '5pm', $option, false ) . ' value="5pm">' . esc_html__( '5pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '6pm', $option, false ) . ' value="6pm">' . esc_html__( '6pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '7pm', $option, false ) . ' value="7pm">' . esc_html__( '7pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '8pm', $option, false ) . ' value="8pm">' . esc_html__( '8pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '9pm', $option, false ) . ' value="9pm">' . esc_html__( '9pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '10pm', $option, false ) . ' value="10pm">' . esc_html__( '10pm', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( '11pm', $option, false ) . ' value="11pm">' . esc_html__( '11pm', 'draft-concluder' ) . '</option>';
 	echo '</select>';
 }
 
@@ -289,9 +289,9 @@ function draft_concluder_what_callback() {
 	}
 
 	echo '<select name="draft_concluder_what">';
-	echo '<option ' . selected( 'post', $option, false ) . ' value="post">' . esc_html__( 'Posts', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'page', $option, false ) . ' value="page">' . esc_html__( 'Pages', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'postpage', $option, false ) . ' value="post">' . esc_html__( 'Posts & Pages', 'draft_concluder' ) . '</option>';
+	echo '<option ' . selected( 'post', $option, false ) . ' value="post">' . esc_html__( 'Posts', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'page', $option, false ) . ' value="page">' . esc_html__( 'Pages', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'postpage', $option, false ) . ' value="post">' . esc_html__( 'Posts & Pages', 'draft-concluder' ) . '</option>';
 	echo '</select>';
 }
 
@@ -307,7 +307,7 @@ function draft_concluder_age_callback() {
 		$option = 0;
 	}
 
-	echo '<input name="draft_concluder_age" size="3" maxlength="3" type="text" value="' . esc_attr( $option ) . '" />&nbsp;' . esc_html__( 'days', 'draft_concluder' );
+	echo '<input name="draft_concluder_age" size="3" maxlength="3" type="text" value="' . esc_attr( $option ) . '" />&nbsp;' . esc_html__( 'days', 'draft-concluder' );
 }
 
 /**
@@ -323,8 +323,8 @@ function draft_concluder_since_callback() {
 	}
 
 	echo '<select name="draft_concluder_since">';
-	echo '<option ' . selected( 'created', $option, false ) . ' value="created">' . esc_html__( 'Since they were created', 'draft_concluder' ) . '</option>';
-	echo '<option ' . selected( 'modified', $option, false ) . ' value="modified">' . esc_html__( 'Since they were last updated', 'draft_concluder' ) . '</option>';
+	echo '<option ' . selected( 'created', $option, false ) . ' value="created">' . esc_html__( 'Since they were created', 'draft-concluder' ) . '</option>';
+	echo '<option ' . selected( 'modified', $option, false ) . ' value="modified">' . esc_html__( 'Since they were last updated', 'draft-concluder' ) . '</option>';
 	echo '</select>';
 }
 
@@ -416,7 +416,7 @@ function draft_concluder_process_posts( $debug = false ) {
 			$modified = '';
 			if ( $post->post_date != $post->post_modified ) {
 				/* translators: %1$s: the date the post was last modified */
-				$modified = sprintf( __( ' and last edited on %1$s', 'draft_concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
+				$modified = sprintf( __( ' and last edited on %1$s', 'draft-concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
 			}
 
 			if ( $include_draft ) {
@@ -430,7 +430,7 @@ function draft_concluder_process_posts( $debug = false ) {
     This was created on ###CREATED######MODIFIED###.
 
 ',
-					'draft_concluder'
+					'draft-concluder'
 				);
 
 				$message = str_replace(
@@ -467,7 +467,7 @@ function draft_concluder_process_posts( $debug = false ) {
 This is your ###WHEN### reminder that you have an outstanding draft that requires your attention:
 
 ',
-					'draft_concluder'
+					'draft-concluder'
 				);
 
 			} else {
@@ -479,7 +479,7 @@ This is your ###WHEN### reminder that you have an outstanding draft that require
 This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts that require your attention:
 
 ',
-					'draft_concluder'
+					'draft-concluder'
 				);
 			}
 
@@ -504,7 +504,7 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 			}
 			$body = $header . $message;
 
-			$display_out       = '<p>' . esc_html__( 'To: ', 'draft_concluder' ) . esc_html( $email_addy ) . '<br/>' . esc_html__( 'Subject: ', 'draft_concluder' ) . esc_html( $subject ) . '<br/><br/>' . nl2br( esc_html( $body ) ) . '</p>';
+			$display_out       = '<p>' . esc_html__( 'To: ', 'draft-concluder' ) . esc_html( $email_addy ) . '<br/>' . esc_html__( 'Subject: ', 'draft-concluder' ) . esc_html( $subject ) . '<br/><br/>' . nl2br( esc_html( $body ) ) . '</p>';
 			$output['emails'] .= $display_out;
 
 			// If debugging, output to screen - otherwise, email the results.
@@ -567,15 +567,15 @@ function draft_concluder_last_run_shortcode( $paras, $content ) {
 	$debug  = '';
 
 	if ( ! $output ) {
-		$debug .= esc_html( __( 'Draft Concluder has not yet run.', 'draft_concluder' ) );
+		$debug .= esc_html( __( 'Draft Concluder has not yet run.', 'draft-concluder' ) );
 	} else {
 		$timestamp = gmdate( 'l jS \of F Y h:i:s A', $output['timestamp'] );
 		if ( 0 == $output['errors'] ) {
 			/* translators: %1$s: timestamp */
-			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft_concluder' ), esc_html( $timestamp ) );
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft-concluder' ), esc_html( $timestamp ) );
 		} else {
 			/* translators: %1$s: timestamp %2$s: number of errors */
-			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with %2$s errors.', 'draft_concluder' ), esc_html( $timestamp ), esc_html( $output['errors'] ) );
+			$text = sprintf( __( 'Draft Concluder last ran at %1$s, with %2$s errors.', 'draft-concluder' ), esc_html( $timestamp ), esc_html( $output['errors'] ) );
 		}
 		$debug .= esc_html( $text ) . '<br/>';
 		$debug .= wp_kses(
