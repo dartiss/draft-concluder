@@ -4,8 +4,8 @@ Donate link: https://artiss.blog/donate
 Tags: drafts, email, pages, posts, reminder
 Requires at least: 4.6
 Tested up to: 6.1
-Requires PHP: 5.3
-Stable tag: 1.1.1
+Requires PHP: 7.4
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 
 I use semantic versioning, with the first release being 1.0.
 
+= 1.1.2 =
+* Enhancement: I updated my PHPCS rulesets and, sure enough, those nerds had changed them. So I had some more changes to make to bring my code inline with the standards.
+* Enhancement: I'd split the code into 4 separate files and, yet, none of them were particularly big. To make thing easier I've combined them back again.
+
 = 1.1.1 =
 * Enhancement: Added a word count to the draft information
 
@@ -115,5 +119,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 1.1.1 =
-* Added a word count for each draft
+= 1.1.2 =
+* Some minor tweaks. A little nip. A little tuck. Nothing you'd notice, though.
