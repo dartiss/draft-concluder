@@ -95,6 +95,7 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 I use semantic versioning, with the first release being 1.0.
 
 = 1.1.2 =
+* Bug: Corrected incorrect text domains - thanks to Alex Lion for identifying this.
 * Enhancement: I updated my PHPCS rulesets and, sure enough, those nerds had changed them. So I had some more changes to make to bring my code inline with the standards.
 * Enhancement: I'd split the code into 4 separate files and, yet, none of them were particularly big. To make thing easier I've combined them back again.
 
