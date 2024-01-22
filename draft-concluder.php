@@ -9,7 +9,7 @@
  * Plugin Name:       Draft Concluder
  * Plugin URI:        https://wordpress.org/plugins/draft-concluder/
  * Description:       📝 Email users that have outstanding drafts.
- * Version:           1.1.2
+ * Version:           1.1.3
  * Requires at least: 4.6
  * Requires PHP:      7.4
  * Author:            David Artiss
@@ -103,7 +103,7 @@ function draft_concluder_set_up_schedule() {
 	// If it has, remove the event and update the old one.
 	$saved_time = get_option( 'draft_concluder_prev_time' );
 
-	if ( ! $saved_time || $time != $saved_time ) {
+	if ( ! $saved_time || $time !== $saved_time ) {
 		if ( strtotime( 'today ' . $time ) > strtotime( 'now' ) ) {
 			$day = 'today';
 		}
@@ -134,10 +134,9 @@ function draft_concluder_schedule_engine() {
 	}
 
 	// Check to see if it should be run.
-	if ( 'Daily' == $when || ( 'Daily' != $when && gmdate( 'l' ) == $when ) ) {
+	if ( 'Daily' === $when || ( 'Daily' !== $when && gmdate( 'l' ) === $when ) ) {
 		draft_concluder_process_posts();
 	}
-
 }
 
 add_action( 'draft_concluder_mailer', 'draft_concluder_schedule_engine' );
@@ -187,13 +186,15 @@ function draft_concluder_section_callback() {
 	echo esc_html( __( 'These settings allow you to control when the emails are generated and what they should report on.', 'draft-concluder' ) );
 
 	// Show the current status of the event run.
+
+	$date_format = 'l, F j, Y \a\t g:i a';
 	echo '<br/><br/>';
 	echo wp_kses( '<strong>' . __( 'Status: ', 'draft-concluder' ) . '</strong>', array( 'strong' => array() ) );
 	if ( ! $output ) {
 		echo esc_html( __( 'Draft Concluder has not yet run.', 'draft-concluder' ) );
 	} else {
-		$timestamp = gmdate( 'l jS \o\f F Y \a\t g:i A', $output['timestamp'] );
-		if ( 0 == $output['errors'] ) {
+		$timestamp = gmdate( $date_format, $output['timestamp'] );
+		if ( 0 === $output['errors'] ) {
 			/* translators: %1$s: timestamp */
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft-concluder' ), $timestamp );
 		} else {
@@ -204,7 +205,7 @@ function draft_concluder_section_callback() {
 
 	// If an event has been scheduled, output the next run time.
 	if ( false !== wp_next_scheduled( 'draft_concluder_mailer' ) ) {
-		$next_run = gmdate( 'l jS \o\f F Y \a\t g:i A', wp_next_scheduled( 'draft_concluder_mailer' ) );
+		$next_run = gmdate( $date_format, wp_next_scheduled( 'draft_concluder_mailer' ) );
 		/* translators: %1$s: timestamp */
 		$text .= '&nbsp;' . sprintf( __( 'It is next due to run on %1$s.', 'draft-concluder' ), $next_run );
 	}
@@ -352,14 +353,14 @@ function draft_concluder_process_posts( $debug = false ) {
 
 	// Get how regularly it's due to run. If not daily, then assume weekly.
 	$when = strtolower( get_option( 'draft_concluder_when' ) );
-	if ( 'daily' != $when ) {
+	if ( 'daily' !== $when ) {
 		$when = 'weekly';
 	}
 
 	// Set up the post types that will be searched for.
 
 	$postpage = get_option( 'draft_concluder_what' );
-	if ( ! $postpage || 'postpage' == $postpage ) {
+	if ( ! $postpage || 'postpage' === $postpage ) {
 		$postpage = array( 'page', 'post' );
 	}
 
@@ -392,9 +393,9 @@ function draft_concluder_process_posts( $debug = false ) {
 
 			$include_draft = true;
 
-			if ( 0 != $age ) {
+			if ( 0 !== $age ) {
 
-				if ( 'modified' == $since ) {
+				if ( 'modified' === $since ) {
 					$date = $post->post_modified;
 				} else {
 					$date = $post->post_date;
@@ -414,7 +415,7 @@ function draft_concluder_process_posts( $debug = false ) {
 			// If the modified date is different to the creation date, then we'll output it.
 			// In which case, we'll build an appropriate end-of-sentence.
 			$modified = '';
-			if ( $post->post_date != $post->post_modified ) {
+			if ( $post->post_date !== $post->post_modified ) {
 				/* translators: %1$s: the date the post was last modified */
 				$modified = sprintf( __( ' and last edited on %1$s', 'draft-concluder' ), esc_html( substr( $post->post_modified, 0, strlen( $post->post_modified ) - 3 ) ) );
 			}
@@ -422,7 +423,7 @@ function draft_concluder_process_posts( $debug = false ) {
 			if ( $include_draft ) {
 
 				// Build a list of drafts that require the user's attention.
-				$draft_count ++;
+				++$draft_count;
 
 				/* translators: Do not translate COUNT,TITLE, LINK, CREATED or MODIFIED : those are placeholders. */
 				$message .= __(
@@ -458,7 +459,7 @@ function draft_concluder_process_posts( $debug = false ) {
 		// Add a header to the email content. A different message is used dependant on whether there is 1 or more drafts.
 		if ( 0 < $draft_count ) {
 
-			if ( 1 == $draft_count ) {
+			if ( 1 === $draft_count ) {
 
 				/* translators: Do not translate WHEN: this is a placeholder. */
 				$header = __(
@@ -495,7 +496,7 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 				$header
 			);
 
-			if ( 1 == $draft_count ) {
+			if ( 1 === $draft_count ) {
 				/* translators: %1$s: name of blog */
 				$subject = sprintf( __( '[%1$s] You have an outstanding draft', 'draft-concluder' ), get_bloginfo( 'name' ) );
 			} else {
@@ -521,7 +522,7 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
 				// phpcs:ignore -- ignoring from PHPCS as this is only being used for a small number of mails
 				$mail_rc = wp_mail( $email_addy, $subject, $body );
 				if ( ! $mail_rc ) {
-					$errors++;
+					++$errors;
 				}
 			}
 		}
@@ -540,14 +541,10 @@ This is your ###WHEN### reminder that you have ###NUMBER### outstanding drafts t
  * Now shortcode
  *
  * Will generate and output the email content.
- *
- * @param string $paras   Parameters.
- * @param string $content Content between shortcodes.
  */
-function draft_concluder_now_shortcode( $paras, $content ) {
+function draft_concluder_now_shortcode() {
 
 	return draft_concluder_process_posts( true );
-
 }
 
 add_shortcode( 'dc_now', 'draft_concluder_now_shortcode' );
@@ -557,11 +554,8 @@ add_shortcode( 'dc_now', 'draft_concluder_now_shortcode' );
  * Last run shortcode
  *
  * Outputs the results of the last run.
- *
- * @param string $paras   Parameters.
- * @param string $content Content between shortcodes.
  */
-function draft_concluder_last_run_shortcode( $paras, $content ) {
+function draft_concluder_last_run_shortcode() {
 
 	$output = get_option( 'draft_concluder_output' );
 	$debug  = '';
@@ -569,8 +563,8 @@ function draft_concluder_last_run_shortcode( $paras, $content ) {
 	if ( ! $output ) {
 		$debug .= esc_html( __( 'Draft Concluder has not yet run.', 'draft-concluder' ) );
 	} else {
-		$timestamp = gmdate( 'l jS \of F Y h:i:s A', $output['timestamp'] );
-		if ( 0 == $output['errors'] ) {
+		$timestamp = gmdate( 'l, F j, Y g:i:s a', $output['timestamp'] );
+		if ( 0 === $output['errors'] ) {
 			/* translators: %1$s: timestamp */
 			$text = sprintf( __( 'Draft Concluder last ran at %1$s, successfully.', 'draft-concluder' ), esc_html( $timestamp ) );
 		} else {

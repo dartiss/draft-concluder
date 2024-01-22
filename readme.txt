@@ -3,9 +3,9 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: drafts, email, pages, posts, reminder
 Requires at least: 4.6
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,7 +54,7 @@ Because it helps you find an end to those annoying drafts that sit around and ne
 
 In Settings -> General -> Draft Concluder, you'll see, under the title, a status - this will tell you when it last ran and whether it was successful or not.
 
-The success is dependant on whether any error was returned when sending out emails - a failure would indicate a problem with `wp_mail` and will need further investigation.
+The success is dependent on whether any error was returned when sending out emails - a failure would indicate a problem with `wp_mail` and will need further investigation.
 
 = The email isn't turning up at the time that it's scheduled! =
 
@@ -94,6 +94,10 @@ And the deed is done - you can no longer disable the plugin (cue diabolical laug
 
 I use semantic versioning, with the first release being 1.0.
 
+= 1.1.3 =
+* Enhancement: Code quality improvements - now abides by the WordPress rules for PHPCS
+* Enhancement: Changed the format of the date and time in the settings screen
+
 = 1.1.2 =
 * Bug: Corrected incorrect text domains - thanks to Alex Lion for identifying this.
 * Enhancement: I updated my PHPCS rulesets and, sure enough, those nerds had changed them. So I had some more changes to make to bring my code inline with the standards.
@@ -120,5 +124,5 @@ I use semantic versioning, with the first release being 1.0.
 
 == Upgrade Notice ==
 
-= 1.1.2 =
-* Some minor tweaks. A little nip. A little tuck. Nothing you'd notice, though.
+= 1.1.3 =
+* Code quality improvements and minor date tweaks
