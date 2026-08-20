@@ -3,13 +3,13 @@ Contributors: dartiss
 Donate link: https://artiss.blog/donate
 Tags: drafts, email, pages, posts, reminder
 Requires at least: 4.6
-Tested up to: 6.4
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-📝 Email users that have outstanding drafts.
+Email users that have outstanding drafts.
 
 == Description ==
 
@@ -23,11 +23,11 @@ Based on [an idea by John Blackbourn](https://twitter.com/johnbillion/status/131
 * Optional ability to prevent the plugin from being deactivated (allow you to avoid the temptation to do so rather than, you know, deal with the drafts)
 * Debug features to allow to verify what's being sent
 
-Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/WordPress-Coding-Standards) and [WordPress VIP](https://github.com/Automattic/VIP-Coding-Standards) coding standards 🎉
+Oh, and, naturally, the code passes [WordPress](https://github.com/WordPress/WordPress-Coding-Standards) and [WordPress VIP](https://github.com/Automattic/VIP-Coding-Standards) coding standards.
 
-I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore) ♥️
+I'd like to thank [Caleb Burks](https://calebburks.com/) for the feedback he provided. Also, the iconography is courtesy of the very talented [Janki Rathod](https://www.fiverr.com/jankirathore). 
 
-👉 Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues 👈
+**Please visit the [Github page](https://github.com/dartiss/draft-concluder "Github") for the latest code development, planned enhancements and known issues**
 
 == Mentions ==
 
@@ -85,6 +85,10 @@ Crack open your site's `wp-config.php` and add the following line of code...
 `define( 'DO_NOT_DISABLE_MY_DRAFT_REMINDER', true );`
 
 And the deed is done - you can no longer disable the plugin (cue diabolical laughter).
+
+= Do you support this plugin on forks of WordPress? =
+
+No. It was developed for WordPress and so forks remain unsupported. I have no intention of developing and testing this on any other version.
 
 == Screenshots ==
 
